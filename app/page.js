@@ -4,14 +4,14 @@ import { TextField, Button, Box, Stack, Typography, Avatar, CircularProgress, Ic
 import { useState, useEffect, useRef } from 'react';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
-import { Analytics } from "@vercel/analytics/react";
+import { Analytics } from "@vercel/analytics/react" 
 
 export default function Home() {
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
       content: "Hey! I'm Aria. What can I assist you with today?",
-      timestamp: '', // Leave this empty initially
+      timestamp: new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }), // Initial timestamp for the assistant's message
     },
   ]);
   const [message, setMessage] = useState('');
@@ -27,16 +27,6 @@ export default function Home() {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
-
-  useEffect(() => {
-    // Set the timestamp on the client side after mounting
-    setMessages((prevMessages) => 
-      prevMessages.map((msg) => ({
-        ...msg,
-        timestamp: new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
-      }))
-    );
-  }, []);
 
   const sendMessage = async () => {
     if (message.trim() === '') return;
@@ -126,7 +116,7 @@ export default function Home() {
       </Box>
       <Stack
         direction="column"
-        width="80%"
+        width={{ xs: '100%', sm: '90%', md: '80%' }} // Adjust width for different screen sizes
         maxWidth="800px"
         height="80%"
         borderRadius={4}
@@ -162,7 +152,7 @@ export default function Home() {
               display="flex"
               flexDirection={messageObj.role === 'assistant' ? 'row' : 'row-reverse'}
               alignItems="flex-start"
-              mb={1}
+              mb={2} // Increased margin between messages
             >
               <Box display="flex" flexDirection="column" alignItems="center" ml={messageObj.role === 'assistant' ? 0 : 2} mr={messageObj.role === 'assistant' ? 2 : 0}>
                 <Avatar sx={{ bgcolor: messageObj.role === 'assistant' ? theme.assistantBg : theme.userBg, mb: 1 }}>
@@ -177,7 +167,7 @@ export default function Home() {
                   backgroundColor: messageObj.role === 'assistant' ? theme.assistantBg : theme.userBg,
                   color: theme.color,
                   borderRadius: "18px",
-                  p: 2,
+                  p: 2, // Added padding to make messages less cramped
                   maxWidth: "70%",
                   boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.1)",
                   animation: "fadeIn 0.3s ease-in-out"
@@ -231,6 +221,7 @@ export default function Home() {
             sx={{
               minWidth: '100px',
               bgcolor: theme.scrollThumb,
+              opacity: 1, // Enhanced visibility
               '&:hover': {
                 bgcolor: isDarkMode ? '#2c387e' : '#82B5B8',
               },
