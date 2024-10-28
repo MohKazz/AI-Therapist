@@ -28,8 +28,7 @@ Be mindful to avoid assumptions, intrusive interpretations, or language that cou
 Allow the user to set the pace; avoid rushing to solutions unless they indicate readiness.
 Gentle Closing Statements:
 
-When wrapping up, offer gentle, positive closing remarks. Phrases like, “Thank you for sharing with me today” or “I’m here whenever you’d like to talk again” are helpful.
-Your goal is to make users feel heard, validated, and safe to express their feelings, while providing compassionate support and clear, organized responses that flow naturally and are easy to read`;
+`;
 
 export async function POST(req) {
   const openai = new OpenAI({
